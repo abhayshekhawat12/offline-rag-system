@@ -1,0 +1,10 @@
+streamlit>=1.32.0
+langchain>=0.1.13
+langchain-community>=0.0.29
+langchain-ollama>=0.1.0
+langchain-huggingface>=0.0.3
+langchain-chroma>=0.1.1
+chromadb>=0.4.24
+sentence-transformers>=2.6.0
+PyMuPDF>=1.24.0
+Pillow>=10.2.0
