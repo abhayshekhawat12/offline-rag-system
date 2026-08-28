@@ -308,3 +308,13 @@ st.markdown("""
     </div>
 </div>
 """, unsafe_allow_html=True)
+
+# Vercel entrypoint compatibility
+def handler(request=None):
+    return {
+        "statusCode": 200,
+        "headers": {"Content-Type": "text/html"},
+        "body": "<h1>🧠 Private Local Offline RAG</h1><p>Please run locally using Streamlit: <code>streamlit run app.py</code></p>"
+    }
+
+app = handler
