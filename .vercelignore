@@ -1,0 +1,11 @@
+# Ignore python virtual environments
+venv/
+.venv/
+
+# Ignore local database and upload folders
+chroma_db/
+uploads/
+
+# Ignore the Streamlit app and requirements to prevent Vercel from attempting to deploy it as a serverless function
+app.py
+requirements.txt
