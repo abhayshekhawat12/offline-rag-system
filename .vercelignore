@@ -1,11 +1,11 @@
-# Ignore python virtual environments
+# Python Virtual Environments
 venv/
 .venv/
 
-# Ignore local database and upload folders
+# Local Vector DB & Uploads
 chroma_db/
 uploads/
 
-# Ignore the Streamlit app and requirements to prevent Vercel from attempting to deploy it as a serverless function
+# Local Streamlit App & Heavy Python Requirements (Runs locally on machine)
 app.py
 requirements.txt

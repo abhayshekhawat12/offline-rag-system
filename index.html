@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Private Local Offline RAG System</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-primary: #0E1117;
+      --bg-card: #1E1E2E;
+      --bg-card-hover: #262638;
+      --accent: #4CAF50;
+      --accent-glow: rgba(76, 175, 80, 0.35);
+      --text-main: #FAFAFA;
+      --text-muted: #A0A0B8;
+      --border-color: #2E2E40;
+      --code-bg: #151722;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Inter', sans-serif;
+    }
+
+    body {
+      background-color: var(--bg-primary);
+      color: var(--text-main);
+      line-height: 1.6;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 40px 20px;
+    }
+
+    .container {
+      max-width: 900px;
+      width: 100%;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(76, 175, 80, 0.15);
+      color: var(--accent);
+      border: 1px solid var(--accent);
+      padding: 6px 16px;
+      border-radius: 999px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      margin-bottom: 16px;
+      letter-spacing: 0.5px;
+    }
+
+    h1 {
+      font-size: 2.75rem;
+      font-weight: 800;
+      margin-bottom: 14px;
+      background: linear-gradient(135deg, #FFFFFF 0%, #B0B0C0 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .subtitle {
+      font-size: 1.15rem;
+      color: var(--text-muted);
+      max-width: 650px;
+      margin: 0 auto;
+    }
+
+    .card {
+      background-color: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 16px;
+      padding: 28px;
+      margin-bottom: 24px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+      transition: transform 0.2s ease, border-color 0.2s ease;
+    }
+
+    .card:hover {
+      border-color: rgba(76, 175, 80, 0.4);
+    }
+
+    h2 {
+      font-size: 1.4rem;
+      font-weight: 700;
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      color: #FFFFFF;
+    }
+
+    .grid-features {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 16px;
+      margin-top: 16px;
+    }
+
+    .feature-item {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid var(--border-color);
+      padding: 16px;
+      border-radius: 12px;
+    }
+
+    .feature-item h3 {
+      font-size: 1.05rem;
+      color: var(--accent);
+      margin-bottom: 6px;
+    }
+
+    .feature-item p {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+    }
+
+    .code-block {
+      background-color: var(--code-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 10px;
+      padding: 14px 18px;
+      font-family: 'Courier New', Courier, monospace;
+      font-size: 0.95rem;
+      color: #4CAF50;
+      margin: 12px 0;
+      overflow-x: auto;
+    }
+
+    .step-list {
+      list-style-type: none;
+      counter-reset: step-counter;
+    }
+
+    .step-list li {
+      counter-increment: step-counter;
+      position: relative;
+      padding-left: 42px;
+      margin-bottom: 18px;
+      font-size: 1rem;
+      color: var(--text-main);
+    }
+
+    .step-list li::before {
+      content: counter(step-counter);
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 28px;
+      height: 28px;
+      background-color: var(--accent);
+      color: #0E1117;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 0.85rem;
+    }
+
+    .author-card {
+      text-align: center;
+      background: linear-gradient(180deg, #1E1E2E 0%, #151722 100%);
+      border: 1px solid var(--border-color);
+    }
+
+    .author-name {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--text-main);
+    }
+
+    .author-detail {
+      font-size: 0.95rem;
+      color: var(--text-muted);
+      margin-top: 4px;
+    }
+
+    .local-badge {
+      display: inline-block;
+      margin-top: 14px;
+      padding: 8px 18px;
+      background-color: #2E2E40;
+      border-radius: 8px;
+      font-size: 0.9rem;
+      color: #FAFAFA;
+    }
+
+    footer {
+      text-align: center;
+      margin-top: 30px;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div class="badge">🔒 100% Offline & Private AI</div>
+      <h1>Private Local Offline RAG</h1>
+      <p class="subtitle">A multimodal Retrieval-Augmented Generation dashboard supporting PDFs, Text files, and Images powered by local Llama-3 & LLaVA.</p>
+    </header>
+
+    <div class="card">
+      <h2>🚀 Key Features</h2>
+      <div class="grid-features">
+        <div class="feature-item">
+          <h3>🧠 Offline LLM</h3>
+          <p>Powered by local Ollama (Llama-3 8B) for ultra-fast and private Q&A.</p>
+        </div>
+        <div class="feature-item">
+          <h3>🖼️ Multimodal Vision</h3>
+          <p>Integrated LLaVA model to read scanned PDFs and analyze images.</p>
+        </div>
+        <div class="feature-item">
+          <h3>⚡ Chroma Vector DB</h3>
+          <p>High performance document indexing using MiniLM-L6 embeddings.</p>
+        </div>
+        <div class="feature-item">
+          <h3>📝 Auto Study Guide</h3>
+          <p>1-Click comprehensive Question & Answer generation from uploads.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>💻 Local Execution Guide</h2>
+      <p style="color: var(--text-muted); margin-bottom: 16px;">This application is designed to run securely on your local environment without any cloud data leaks.</p>
+      
+      <ol class="step-list">
+        <li>
+          <strong>Install Dependencies:</strong>
+          <div class="code-block">pip install -r requirements.txt</div>
+        </li>
+        <li>
+          <strong>Start Ollama & Pull Models:</strong>
+          <div class="code-block">ollama pull llama3<br>ollama pull llava</div>
+        </li>
+        <li>
+          <strong>Launch Streamlit Dashboard:</strong>
+          <div class="code-block">streamlit run app.py</div>
+        </li>
+      </ol>
+      <div class="local-badge">🌐 Local URL: <strong>http://localhost:8502</strong></div>
+    </div>
+
+    <div class="card author-card">
+      <h2>🏆 Project Information</h2>
+      <div class="author-name">Abhay Shekhawat</div>
+      <div class="author-detail">📧 abhayshekhawat57@gmail.com</div>
+      <div class="author-detail">🏛️ Arya College of Engineering and IT</div>
+    </div>
+
+    <footer>
+      Built for absolute privacy and complete local persistence.
+    </footer>
+  </div>
+</body>
+</html>
